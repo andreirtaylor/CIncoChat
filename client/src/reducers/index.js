@@ -9,7 +9,7 @@ const user = (state = {}, action) => {
   }
 }
 
-const users = (state = {}, action) => {
+const users = (state = [], action) => {
   switch (action.type) {
     case 'ADD_USERS':
       return action.users
@@ -20,17 +20,15 @@ const users = (state = {}, action) => {
 
 const messages = (state = [], action) => {
   switch (action.type) {
-    case 'ADD_TODO':
-      return [
-        ...state,
-        action.message
-      ]
-    case 'INITIALIZE':
+    case 'RELOAD_MESSAGES':
       return action.messages
+    case 'NEW_MESSAGE':
+      return [ ...state, action.message ]
     default:
       return state
   }
 }
+
 
 export default combineReducers({
   user,

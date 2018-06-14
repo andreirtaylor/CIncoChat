@@ -1,6 +1,7 @@
 'use strict';
 
 const User = require('./users.js');
+const Messages = require('./messages.js');
 
 let db = require('./db.js');
 

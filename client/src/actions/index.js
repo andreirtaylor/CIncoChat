@@ -8,15 +8,13 @@ export const addUsers = (users) => ({
   users
 })
 
-export const fetchUser = dispatch => {
-  return fetch('/api/users/me', {
-    credentials: 'include'
-  })
-    .then(res => {
-      if (res.status >= 400 && res.status < 600) {
-        throw new Error('Bad response from server');
-      }
-      return res.json();
-    })
-    .then(json => dispatch(addUser(json)))
-}
+export const reloadMessages = (messages) => ({
+  type: 'RELOAD_MESSAGES',
+  messages
+})
+
+export const newMessage = (message) => ({
+  type: 'NEW_MESSAGE',
+  message
+})
+
