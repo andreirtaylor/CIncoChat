@@ -3,6 +3,11 @@ export const addUser = (user) => ({
   user
 })
 
+export const addUsers = (users) => ({
+  type: 'ADD_USERS',
+  users
+})
+
 export const fetchUser = dispatch => {
   return fetch('/api/users/me', {
     credentials: 'include'

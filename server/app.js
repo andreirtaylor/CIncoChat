@@ -29,18 +29,20 @@ const client = require('redis').createClient({
   url: process.env.REDIS_URL
 });
 
-app.use(
-  session({
-    store: new RedisStore({ client }),
+client.on('error', function(err) {
+  console.log('Error ' + err);
+});
+
+// shared store for both the client and the socket
+const store = new RedisStore({ client });
+
+const sessionMiddleware = session({
+    store,
     secret: process.env.SECRET_REDIS || 'keyboard cat',
     resave: false,
     saveUninitialized: true
   })
-);
-
-client.on('error', function(err) {
-  console.log('Error ' + err);
-});
+app.use(sessionMiddleware);
 
 // INITIALIZE DB
 require('./models');
@@ -65,4 +67,4 @@ app.use((req, res, next) => {
 // INITIALIZE API
 app.use('/api', require('./controllers'));
 
-module.exports = app;
+module.exports = { app, sessionMiddleware}   ;

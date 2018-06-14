@@ -1,6 +1,6 @@
 // This will be our application entry. We'll setup our server here.
 const http = require('http');
-const app = require('../app'); // The express app we just created
+const { app, sessionMiddleware } = require('../app'); // The express app we just created
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);
@@ -8,4 +8,17 @@ app.set('port', port);
 console.log('Listening on port: ',port)
 
 const server = http.createServer(app);
+
+var io = require('socket.io')(server);
+
+const redisAdapter = require('socket.io-redis');
+
+io.adapter(redisAdapter({ host: 'localhost', port: 6379 }));
+
+io.use(function (socket, next) {
+    sessionMiddleware(socket.request, socket.request.res, next);
+});
+
+io.on('connection', require('../socket.js'));
+
 server.listen(port);

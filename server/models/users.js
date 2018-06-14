@@ -2,16 +2,8 @@ let Sequelize = require('sequelize');
 let db = require('./db.js');
 
 const Users = db.define(
-  'Users',
-  {
-    first_name: {
-      type: Sequelize.STRING,
-      required: true,
-      validate: {
-        notEmpty: true
-      }
-    },
-    last_name: {
+  'Users',{
+    username: {
       type: Sequelize.STRING,
       required: true,
       validate: {
@@ -32,9 +24,6 @@ const Users = db.define(
         notEmpty: true
       }
     }
-  },
-  {
-    timestamps: true
   }
 );
 

@@ -8,8 +8,7 @@ export default class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      first_name: '',
-      last_name: '',
+      username: '',
       password: '',
       confirm_password: '',
     };
@@ -61,15 +60,9 @@ export default class Register extends Component {
                 label="Email"
                 onChange={this.handleChange("email")}
               />
-            </div>
-            <div>
               <TextField
-                label="First Name"
-                onChange={this.handleChange("first_name")}
-              />
-              <TextField
-                label="Last Name"
-                onChange={this.handleChange("last_name")}
+                label="username"
+                onChange={this.handleChange("username")}
               />
             </div>
             <div>

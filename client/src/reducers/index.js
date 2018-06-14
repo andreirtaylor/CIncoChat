@@ -9,6 +9,15 @@ const user = (state = {}, action) => {
   }
 }
 
+const users = (state = {}, action) => {
+  switch (action.type) {
+    case 'ADD_USERS':
+      return action.users
+    default:
+      return state
+  }
+}
+
 const messages = (state = [], action) => {
   switch (action.type) {
     case 'ADD_TODO':
@@ -25,5 +34,6 @@ const messages = (state = [], action) => {
 
 export default combineReducers({
   user,
-  messages
+  messages,
+  users,
 })

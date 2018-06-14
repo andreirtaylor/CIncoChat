@@ -65,12 +65,8 @@ router.post('/register', function(req, res) {
   bcrypt.hash(req.body.password, SALT_ROUNDS, function(err, hash) {
     // Store hash in your password DB.
     Users.create({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
+      username: req.body.first_name,
       password: hash,
-      email: req.body.email,
-      username: req.body.username,
-      points: 0
     })
       .then(user => res.status(200).send(user))
       .catch(error => res.status(400).send(error));
