@@ -2,9 +2,9 @@ import React from 'react';
 import browserHistory from './history';
 import { Router, Route, Redirect, Switch } from 'react-router-dom';
 
-import Login from 'views/Login';
-import Profile from 'views/Profile';
-import Register from 'views/Register';
+import Login from 'containers/Login';
+import Profile from 'containers/Profile';
+import Register from 'containers/Register';
 
 const Routes = () => {
   return (

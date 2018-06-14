@@ -31,17 +31,6 @@ const Users = db.define(
       validate: {
         notEmpty: true
       }
-    },
-    username: {
-      type: Sequelize.TEXT,
-      required: true,
-      validate: {
-        notEmpty: true
-      }
-    },
-    points: {
-      type: Sequelize.INTEGER,
-      required: false
     }
   },
   {
