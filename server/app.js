@@ -64,7 +64,4 @@ app.use((req, res, next) => {
   });
 })
 
-// INITIALIZE API
-app.use('/api', require('./controllers'));
-
 module.exports = { app, sessionMiddleware}   ;

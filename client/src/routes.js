@@ -3,7 +3,7 @@ import browserHistory from './history';
 import { Router, Route, Redirect, Switch } from 'react-router-dom';
 
 import Login from 'containers/Login';
-import Profile from 'containers/Profile';
+import Chat from 'containers/Chat';
 import Register from 'containers/Register';
 
 const Routes = () => {
@@ -11,7 +11,7 @@ const Routes = () => {
     <Router history={browserHistory}>
       <div>
         <Switch>
-          <PrivateRoute exact path="/" component={Profile} />
+          <PrivateRoute exact path="/" component={Chat} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route component={NotFound} />
