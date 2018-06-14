@@ -10,7 +10,7 @@ module.exports = async (sock) => {
     // we tell the client to execute 'new message'
 
     const id = sock.request.session.passport.user;
-    const user = await User.findOne({id});
+    const user = await User.findById(id);
     delete user.password
     sock.emit('GET_USER', user);
   });
