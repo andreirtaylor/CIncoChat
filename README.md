@@ -2,6 +2,8 @@
 
 A basic chat so that I could learn redux and have a template for real time apps in the future.
 
+![Oh wowie](UIOverview.png)
+
 ## Dependencies
 
 ### Node
