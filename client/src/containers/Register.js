@@ -3,7 +3,6 @@ import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import browserHistory from '../history';
-import Paper from '@material-ui/core/Paper';
 
 export default class Register extends Component {
   constructor(props) {

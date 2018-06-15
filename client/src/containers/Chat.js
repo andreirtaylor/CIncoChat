@@ -42,7 +42,8 @@ class Profile extends Component {
       // you should append it to the messages
       const {recipient,user} = this.props;
 
-      if(message.sender == recipient || user.id == message.sender){
+      if(message.sender === recipient || user.id === message.sender){
+
         dispatch(newMessage(message))
       } else {
         // othewise just alert that there is a new message
@@ -77,20 +78,24 @@ class Profile extends Component {
         </Toolbar>
       </AppBar>
       <Grid container>
-        <Grid item xs={4} >
+        {/*offset*/}
+        <Grid item md={2} lg={3} />
+        <Grid item md={3} lg={2}>
           <UserList users={users} recipient={recipient} changeRecipient={this.changeRecipient}/>
         </Grid>
-        <Grid item xs={8}>
-          { recipient !== -1 && <MessageList recipient={recipient} messages={messages}/> }
-        </Grid>
-      </Grid>
-      { recipient !== -1 && 
-          <Grid container justify={'flex-end'} alignItems={"flex-end"}>
-            <Grid item xs={8}>
-              <ChatInput send={this.send} messages={messages}/>
+        { recipient !== -1 && 
+          <Grid item md={5} lg={4}>
+            <Grid item md={12}>
+              { recipient !== -1 && <MessageList recipient={recipient} messages={messages}/> }
+            </Grid>
+            <Grid container justify={'flex-end'} alignItems={"flex-end"}>
+              <Grid item md={12}>
+                <ChatInput send={this.send} messages={messages}/>
+              </Grid>
             </Grid>
           </Grid>
-      }
+        }
+      </Grid>
 
     </div>
     );
