@@ -5,8 +5,12 @@ const Op = require('sequelize').Op;
 module.exports = async sock => {
   const id = sock.request.session.passport.user;
 
+  // every socket joins based on the users id
+  // When you want to send a user a private message
+  // send it to their id
   sock.join(id);
 
+  // dont leak passwords
   sock.on('GET_USERS', async () => {
     // Dont return the current user
     let users = await User.findAll({ where: { id: { [Op.ne]: id } } });
@@ -14,6 +18,7 @@ module.exports = async sock => {
     sock.emit('GET_USERS', users);
   });
 
+  // dont leak passwords
   sock.on('GET_USER', async () => {
     const user = await User.findById(id);
     delete user.password;
@@ -31,19 +36,21 @@ module.exports = async sock => {
     io.to(id).emit('NEW_MESSAGE', message);
   });
 
-  sock.on('GET_MESSAGES', async ({ room }) => {
+  sock.on('GET_MESSAGES', async ({ otherId }) => {
     // messages that have been sent or received from the other person
+    // and the sender
     const messages = await Messages.findAll({
       where: {
         [Op.and]: {
           sender: {
-            [Op.or]: [room, id]
+            [Op.or]: [otherId, id]
           },
           recipient: {
-            [Op.or]: [room, id]
+            [Op.or]: [otherId, id]
           }
         }
       },
+      // order by the time the messages were received
       order: [['updatedAt']]
     });
 

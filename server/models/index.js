@@ -5,6 +5,7 @@ const Messages = require('./messages.js');
 
 let db = require('./db.js');
 
+// if you run this function you will completely reset the database
 async function syncDB() {
   try {
     await db.sync({ force: true });
@@ -15,6 +16,7 @@ async function syncDB() {
   }
 }
 
+// run node server/models --seed to reset db
 if (process.argv.includes('--seed')) {
   syncDB().then(() => {
     if (process.argv.includes('--seed')) db.close();

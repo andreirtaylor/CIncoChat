@@ -29,6 +29,7 @@ const client = require('redis').createClient({
   url: process.env.REDIS_URL
 });
 
+// log redis errors
 client.on('error', function(err) {
   console.log('Error ' + err);
 });
@@ -36,6 +37,7 @@ client.on('error', function(err) {
 // shared store for both the client and the socket
 const store = new RedisStore({ client });
 
+// sessionMiddleware is used for both sockets and http requests
 const sessionMiddleware = session({
   store,
   secret: process.env.SECRET_REDIS || 'keyboard cat',
