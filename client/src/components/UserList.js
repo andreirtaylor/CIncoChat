@@ -7,7 +7,7 @@ export default props => {
   const { users, changeRecipient } = props;
   return (
     <div>
-      <h1> Your Contacts </h1>
+      <h1> Contacts </h1>
       <ul style={{ fontSize: '150%' }}>
         {users.map(user => (
           <Card
