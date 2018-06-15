@@ -21,9 +21,32 @@ node server/models --seed
 
 ## Running the project
 
+Run this command then when the containers start up exit them
+
+Then open a bash terminal and type
+
+```
+npm run-script runandbuild
+```
+
+Then go to 
+
+```
+localhost:8000 
+```
+
+in your browser
+
+# Running with Hot Reloading for Dev
+
 Run each of these in separate terminals
 
 - From **root** folder run `npm run dev`
 - From **root** folder run `docker-compose up`
 - From **client** folder run `npm start`
 
+# Design and Architecture
+- Built with React.js, Redux, Material UI, Redis, Postgres, docker, docker-compose, node and express
+
+## Architecture
+![Overview of architecture](Architecture.png)

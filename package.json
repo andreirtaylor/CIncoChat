@@ -7,7 +7,7 @@
     "start": "node ./server/bin/www",
     "dev": "node ./server/models/ -- seed && ./node_modules/nodemon/bin/nodemon.js ./server/bin/www nodemon --ext js,jsx --ignore public/ --ignore client.js",
     "heroku-postbuild": "cd client && npm install && npm run-script build",
-    "build": "npm install && cd client && npm install && npm run-script build && node server/models --seed",
+    "runandbuild": "docker-compose down > /dev/null 2>&1 && (docker-compose up > /dev/null 2>&1 &)  && npm install && cd client && npm install && npm run-script build && cd .. && node ./server/models --seed && NODE_ENV=production npm start",
     "test": "./node_modules/jest/bin/jest.js --watchAll",
     "precommit": "lint-staged"
   },

@@ -13,7 +13,7 @@ app.use(logger('dev'));
 
 //When in production serve from build folder
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('../client/build'));
+  app.use(express.static('./client/build'));
 } else {
   app.disable('etag');
 }
@@ -37,11 +37,11 @@ client.on('error', function(err) {
 const store = new RedisStore({ client });
 
 const sessionMiddleware = session({
-    store,
-    secret: process.env.SECRET_REDIS || 'keyboard cat',
-    resave: false,
-    saveUninitialized: true
-  })
+  store,
+  secret: process.env.SECRET_REDIS || 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+});
 app.use(sessionMiddleware);
 
 // INITIALIZE DB
@@ -62,6 +62,6 @@ app.use((req, res, next) => {
   res.status(401).send({
     message: 'You must be logged in to access this resource'
   });
-})
+});
 
-module.exports = { app, sessionMiddleware}   ;
+module.exports = { app, sessionMiddleware };
