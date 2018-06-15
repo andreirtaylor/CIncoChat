@@ -8,6 +8,11 @@ export const addUsers = (users) => ({
   users
 })
 
+export const updateRecipient = (recipient) => ({
+  type: 'UPDATE_RECIPIENT',
+  recipient
+})
+
 export const reloadMessages = (messages) => ({
   type: 'RELOAD_MESSAGES',
   messages
@@ -18,3 +23,12 @@ export const newMessage = (message) => ({
   message
 })
 
+export const setNotification = (message) => ({
+  type: 'NOTIFICATION',
+  message
+})
+
+export const setSelected = recipient => ({
+  type: 'SELECT_RECIPIENT',
+  recipient
+})

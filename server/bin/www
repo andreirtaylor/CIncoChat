@@ -9,7 +9,7 @@ console.log('Listening on port: ',port)
 
 const server = http.createServer(app);
 
-var io = require('socket.io')(server);
+io = require('socket.io')(server);
 
 const redisAdapter = require('socket.io-redis');
 

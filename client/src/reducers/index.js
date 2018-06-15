@@ -10,9 +10,29 @@ const user = (state = {}, action) => {
 }
 
 const users = (state = [], action) => {
+  let tmp;
   switch (action.type) {
     case 'ADD_USERS':
       return action.users
+    case 'NOTIFICATION':
+      tmp = [...state]
+      tmp.find((el) => el.id === action.message.sender).notification = true;
+      return tmp
+    case 'SELECT_RECIPIENT':
+      tmp = [...state]
+      tmp.map((el)=> el.selected = false)
+      tmp.find((el) => el.id === action.recipient).notification = false; 
+      tmp.find((el) => el.id === action.recipient).selected = true; 
+      return tmp
+    default:
+      return state
+  }
+}
+
+const recipient = (state = -1, action) => {
+  switch (action.type) {
+    case 'UPDATE_RECIPIENT':
+      return action.recipient
     default:
       return state
   }
@@ -34,4 +54,5 @@ export default combineReducers({
   user,
   messages,
   users,
+  recipient
 })

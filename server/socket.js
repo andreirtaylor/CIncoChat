@@ -9,7 +9,9 @@ module.exports = async (sock) => {
   sock.join(id);
 
   sock.on('GET_USERS', async () => {
-    let users = await User.findAll();
+    // Dont return the current user
+    let users = await User.findAll({where: { id: {[Op.ne]: id} }});
+    users.forEach((user) => delete user.password)
     sock.emit('GET_USERS', users);
   });
 
@@ -19,19 +21,26 @@ module.exports = async (sock) => {
     sock.emit('GET_USER', user);
   });
 
+  sock.on('NEW_MESSAGE', async ({msg, recipient}) => {
+    var message = await Messages.create( {sender:id, recipient, message: msg})
+
+    io.to(recipient).emit('NEW_MESSAGE', message);
+    io.to(id).emit('NEW_MESSAGE', message);
+  });
+
   sock.on('GET_MESSAGES', async ({room}) => {
     // messages that have been sent or received from the other person
     const messages = await Messages.findAll({ where: {
       [Op.and]: {
-        from: {
+        sender: {
           [Op.or]: [room, id]
         },
-        to: {
+        recipient: {
           [Op.or]: [room, id]
         }
       }
       },
-      order: [['updatedAt', 'DESC']]
+      order: [['updatedAt']]
     });
 
     sock.emit('RELOAD_MESSAGES', messages);
