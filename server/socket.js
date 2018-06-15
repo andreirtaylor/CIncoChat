@@ -36,17 +36,21 @@ module.exports = async sock => {
     io.to(id).emit('NEW_MESSAGE', message);
   });
 
-  sock.on('GET_MESSAGES', async ({ otherId }) => {
+  // this is really a user id but I wanted to
+  // leave it open for "channels/group messages"
+  // I think I could make it work with channels
+  // with minimal effort.
+  sock.on('GET_MESSAGES', async ({ room }) => {
     // messages that have been sent or received from the other person
     // and the sender
     const messages = await Messages.findAll({
       where: {
         [Op.and]: {
           sender: {
-            [Op.or]: [otherId, id]
+            [Op.or]: [room, id]
           },
           recipient: {
-            [Op.or]: [otherId, id]
+            [Op.or]: [room, id]
           }
         }
       },

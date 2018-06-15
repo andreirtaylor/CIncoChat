@@ -20,9 +20,8 @@ const Routes = () => {
     </Router>
   );
 };
-const NotFound = ({ component: Component, ...rest }) => (
-  <div> Wrong Turn </div>
-)
+
+const NotFound = ({ component: Component, ...rest }) => <div> Wrong Turn </div>;
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route

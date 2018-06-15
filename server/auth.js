@@ -3,6 +3,9 @@ var passport = require('passport'),
   bcrypt = require('bcrypt'),
   router = require('express').Router();
 
+// NOTE passport is just weird to use
+// this is mostly copy paste from other projects
+
 const Users = require('./models/users.js');
 const SALT_ROUNDS = 10;
 
@@ -62,24 +65,29 @@ router.post('/register', async function(req, res) {
   }
 
   // Saving the new user to DB
-  let hash = await bcrypt.hash(req.body.password, SALT_ROUNDS);
-  // Store hash in your password DB.
-  let user = await Users.findOne({where: {email:req.body.email}});
-  if(user) return res.status(400).send({err:"User with the same email exists"});
+  let user = await Users.findOne({ where: { email: req.body.email } });
+  if (user)
+    return res.status(400).send({ err: 'User with the same email exists' });
 
-  let user2 = await Users.findOne({where: {username:req.body.username}});
-  if(user2) return res.status(400).send({err:"User with the same username exists"});
+  let user2 = await Users.findOne({ where: { username: req.body.username } });
+  if (user2)
+    return res.status(400).send({ err: 'User with the same username exists' });
+
+  let hash = await bcrypt.hash(req.body.password, SALT_ROUNDS);
 
   Users.create({
     username: req.body.username,
     email: req.body.email,
-    password: hash,
+    password: hash
   })
     .then(user => {
-      io.emit("NEW_USER")
-      res.status(200).send(user)
+      // HACK this is used to make the UI know about the
+      // new user I would make this more robust if
+      // this were a longer project
+      io.emit('NEW_USER');
+      res.status(200).send(user);
     })
-    .catch(error => res.status(400).send({err: error.errors[0].message}));
+    .catch(error => res.status(400).send({ err: error.errors[0].message }));
 });
 
 router.post(

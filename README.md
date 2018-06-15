@@ -37,6 +37,9 @@ localhost:8000
 
 in your browser
 
+There are three accounts set up "`tim@cinco.com`, `eric@cinco.com` and `steve@cinco.com`" 
+all their passwords are `test` you can also make a new account if you wish
+
 # Running with Hot Reloading for Dev
 
 Run each of these in separate terminals
