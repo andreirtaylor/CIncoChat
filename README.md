@@ -1,27 +1,27 @@
-## System dependencies
+# Cinco Chat
 
-#### Node
+A basic chat so that I could learn redux and have a template for real time apps in the future.
+
+## Dependencies
+
+### Node
 
 - install [Node](nodejs.org), preferably using a version manager such as [nvm](https://github.com/creationix/nvm)
 
-#### Docker and docker-compose
+### Docker and docker-compose
 
 - [docker-compose](https://github.com/docker/compose/releases): instructions are here
 - [docker](https://store.docker.com/search?type=edition&offering=community): Download for your OS here
 
 
-## Database setup
-
-- Use the following command to seed your database
-
-```
-node server/models --seed
-```
-- You can also use the above command to completely reset the database at any time
-
 ## Running the project
 
+I assume you have access to a terminal running bash. And have installed the dependencies
 Run this command then when the containers start up exit them
+
+```
+docker-compose up
+```
 
 Then open a bash terminal and type
 
@@ -37,15 +37,21 @@ localhost:8000
 
 in your browser
 
-There are three accounts set up "`tim@cinco.com`, `eric@cinco.com` and `steve@cinco.com`" 
+### Notes
+- There are three accounts set up "`tim@cinco.com`, `eric@cinco.com` and `steve@cinco.com`" 
 all their passwords are `test` you can also make a new account if you wish
+- shift enter can be used to send a message
+
+#Development
 
 # Running with Hot Reloading for Dev
 
 Run each of these in separate terminals
 
-- From **root** folder run `npm run dev`
 - From **root** folder run `docker-compose up`
+    - now seed the db `node server/models --seed`
+        - You can also use the above command to completely reset the database at any time
+- From **root** folder run `npm run dev`
 - From **client** folder run `npm start`
 
 # Design and Architecture
@@ -55,4 +61,4 @@ Run each of these in separate terminals
 ![Overview of architecture](Architecture.png)
 
 ## Tim and Eric
-- [](https://www.youtube.com/watch?v=KweD1Bxjt9w)
+- [Cinco Products](https://www.youtube.com/watch?v=TLa1jlhEtu8)
