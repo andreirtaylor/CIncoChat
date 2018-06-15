@@ -53,7 +53,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-router.post('/register', function(req, res) {
+router.post('/register', async function(req, res) {
   // there is probably a better way, ensureAuthenticated?
   if (typeof req.user !== 'undefined') {
     // User is logged in.
@@ -62,19 +62,24 @@ router.post('/register', function(req, res) {
   }
 
   // Saving the new user to DB
-  bcrypt.hash(req.body.password, SALT_ROUNDS, function(err, hash) {
-    // Store hash in your password DB.
-    Users.create({
-      username: req.body.username,
-      email: req.body.email,
-      password: hash,
+  let hash = await bcrypt.hash(req.body.password, SALT_ROUNDS);
+  // Store hash in your password DB.
+  let user = await Users.findOne({where: {email:req.body.email}});
+  if(user) return res.status(400).send({err:"User with the same email exists"});
+
+  let user2 = await Users.findOne({where: {username:req.body.username}});
+  if(user2) return res.status(400).send({err:"User with the same username exists"});
+
+  Users.create({
+    username: req.body.username,
+    email: req.body.email,
+    password: hash,
+  })
+    .then(user => {
+      io.emit("NEW_USER")
+      res.status(200).send(user)
     })
-      .then(user => {
-        io.emit("NEW_USER")
-        res.status(200).send(user)
-      })
-      .catch(error => res.status(400).send(error));
-  });
+    .catch(error => res.status(400).send({err: error.errors[0].message}));
 });
 
 router.post(

@@ -22,7 +22,9 @@ module.exports = async (sock) => {
   });
 
   sock.on('NEW_MESSAGE', async ({msg, recipient}) => {
-    var message = await Messages.create( {sender:id, recipient, message: msg})
+    console.log(msg, recipient)
+    let message = await Messages.create( {sender:id, recipient, message: msg})
+
 
     io.to(recipient).emit('NEW_MESSAGE', message);
     io.to(id).emit('NEW_MESSAGE', message);

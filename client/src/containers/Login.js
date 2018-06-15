@@ -16,12 +16,6 @@ class Login extends Component {
     };
   }
 
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
-
   login = () => {
     fetch('/auth/login', {
       method: 'POST',
@@ -50,28 +44,32 @@ class Login extends Component {
         alert('Error while processing login ' + err);
       });
   };
+  handleChange = name => e => {
+    this.setState({
+      [name]: e.target.value
+    });
+  };
 
   render() {
     return (
-      <Grid container justify="center" alignItems='center'>
-        <Grid item xs={6} alignItems="center">
-          <Paper>
-            <form>
-              <Grid item xs={12}>
-                <TextField
-                  name="email"
-                  type="email"
-                  onChange={this.handleChange}
-                />
-              </Grid>
-              <div>
-                <TextField
-                  name="password"
-                  type="password"
-                  onChange={this.handleChange}
-                />
-              </div>
-            </form>
+      <div style={{textAlign:"center"}} className="form-padding">
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div>
+              <TextField
+                label="Email"
+                onChange={this.handleChange("email")}
+              />
+        <br/>
+            <div>
+              <TextField
+                label="Password"
+                type="password"
+                onChange={this.handleChange("password")}
+              />
+            </div>
             <br />
             <div className="row">
               <div className="col-6">
@@ -87,9 +85,8 @@ class Login extends Component {
                 REGISTER NOW
               </Link>
             </div>
-      </Paper>
-    </Grid>
-  </Grid>
+        </div>
+      </div>
     );
   }
 }

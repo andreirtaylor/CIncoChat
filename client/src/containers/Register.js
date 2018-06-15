@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
+import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import browserHistory from '../history';
 import Paper from '@material-ui/core/Paper';
@@ -15,7 +16,6 @@ export default class Register extends Component {
   }
 
   register = () => {
-    alert(JSON.stringify(this.state))
     if (this.state.password === this.state.confirm_password) {
       fetch('/auth/register', {
         method: 'POST',
@@ -27,13 +27,11 @@ export default class Register extends Component {
       })
         .then(response => {
           if (response.status === 200) {
-            response.json().then(data => {
               browserHistory.push('/');
-            });
           } else {
-            if (response.status === 400) {
-              alert('Invalid email or all fields are not filled in');
-            }
+            response.json().then((err) => {
+              alert("error from server: " + JSON.stringify(err.err))
+            })
           }
         })
         .catch(err => console.log(err));
@@ -43,7 +41,6 @@ export default class Register extends Component {
   };
 
   handleChange = name => e => {
-    console.log(name, e)
     this.setState({
       [name]: e.target.value
     });
@@ -51,45 +48,49 @@ export default class Register extends Component {
 
   render() {
     return (
-      <Paper>
-        <div className="form-padding">
-          <div className="reg-login-header">REGISTER</div>
-          <form>
-            <div>
-              <TextField
-                label="Email"
-                onChange={this.handleChange("email")}
-              />
-              <TextField
-                label="username"
-                onChange={this.handleChange("username")}
-              />
-            </div>
-            <div>
-              <TextField
-                label="Password"
-                onChange={this.handleChange("password")}
-              />
-              <TextField
-                label="Confirm Password"
-                onChange={this.handleChange("confirm_password")}
-              />
-            </div>
-          </form>
-          <br />
-          <div className="row">
-            <div className="col-6" />
-            <div className="col-6">
-              <Button
-                className="reg-login-btn"
-                onClick={this.register}
-              >
-                Register
-              </Button>
-            </div>
-          </div>
+      <div style={{textAlign:"center"}} className="form-padding">
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div className="reg-login-header">REGISTER</div>
+        <div>
+          <TextField
+            label="Email"
+            onChange={this.handleChange("email")}
+          />
+          <span>&nbsp;&nbsp;</span>
+          <TextField
+            label=" Username"
+            onChange={this.handleChange("username")}
+          />
         </div>
-      </Paper>
+        <div>
+          <TextField
+            label="Password"
+            type="password"
+            onChange={this.handleChange("password")}
+          />
+          <span>&nbsp;&nbsp;</span>
+          <TextField
+            label=" Confirm Password"
+            type="password"
+            onChange={this.handleChange("confirm_password")}
+          />
+        </div>
+        <br />
+        <Button variant="contained" color="primary" onClick={this.register} >
+          Register
+        </Button>
+        <br/>
+        <br/>
+        <div className="reg-login-msg">
+          Already A MEMBER?<Link to="/login">
+            {' '}
+            Login Here
+          </Link>
+        </div>
+      </div>
     );
   }
 }
