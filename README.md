@@ -50,3 +50,6 @@ Run each of these in separate terminals
 
 ## Architecture
 ![Overview of architecture](Architecture.png)
+
+## Tim and Eric
+- [](https://www.youtube.com/watch?v=KweD1Bxjt9w)
