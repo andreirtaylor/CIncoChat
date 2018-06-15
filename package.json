@@ -7,7 +7,7 @@
     "start": "node ./server/bin/www",
     "dev": "node ./server/models/ -- seed && ./node_modules/nodemon/bin/nodemon.js ./server/bin/www nodemon --ext js,jsx --ignore public/ --ignore client.js",
     "heroku-postbuild": "cd client && npm install && npm run-script build",
-    "heroku-postbuild": "cd client && npm install && npm run-script build && node server/models --seed",
+    "build": "npm install && cd client && npm install && npm run-script build && node server/models --seed",
     "test": "./node_modules/jest/bin/jest.js --watchAll",
     "precommit": "lint-staged"
   },
